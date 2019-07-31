@@ -1,7 +1,7 @@
 {
-  "name": "github-battle-new",
+  "name": "github-battle",
   "version": "1.0.0",
-  "description": "",
+  "description": "A React JS App ⚛ that leverages the GitHub REST API",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
