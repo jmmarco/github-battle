@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+import PopularNav from './components/PopularNav'
 
 // Component
 // State
@@ -11,9 +12,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-      Hello there!
-      </div>
+      <>
+      <PopularNav />
+      </>
     )
   }
   // This will get converted to:
