@@ -1,4 +1,74 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
 body {
   font-family: Helvetica Neue, san-serif;
+}
+
+main {
+  padding: 0 40px;
+}
+
+.grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-gap: 1rem;
+  justify-content: space-between;
+  list-style: none;
+  padding-left: 0;
+}
+
+.grid > li {
+  width: 300px;
+  background-color: rgb(231, 230, 231);
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid a {
+  text-decoration: none;
+}
+
+.heading-lg {
+  font-weight: 300;
+  font-size: 3em;
+  margin: 10px;
+}
+
+.stats {
+  list-style: none;
+  padding-left: 0;
+}
+
+.stats li {
+  margin-bottom: 5px;
+}
+
+.stats li a {
+  color: #000;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+}
+
+.stats li span {
+  vertical-align: bottom;
+}
+
+.avatar {
+  width: 150px;
+  height: auto;
+}
+
+.link {
+  color: crimson;
 }
 
