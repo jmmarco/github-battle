@@ -135,7 +135,7 @@ li {
 }
 
 .player {
-  flex: 1;
+  /*flex: 1;*/
   margin: 0 20px;
   padding: 10px;
 }
@@ -188,3 +188,11 @@ li {
   color: #c7c7c7;
 }
 
+
+.space-around {
+  justify-content: space-around;
+}
+
+.players-container {
+  margin: 100px 0;
+}
