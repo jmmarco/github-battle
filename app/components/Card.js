@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function Card({ header, subheader, avatar, name, href }){
+export default function Card({ header, subheader, avatar, name, href, children }){
   return (
     <div className="card bg-light">
       <h4 className="heading-lg center-text">
@@ -22,7 +22,7 @@ export default function Card({ header, subheader, avatar, name, href }){
           {name}
         </a>
       </h2>
-      {this.props.children}
+      {children}
     </div>
   )
 }
