@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { battle } from '../utils/api'
+import Loading from './Loading'
 import Card from './Card'
 import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaCode, FaUser } from 'react-icons/fa'
 
@@ -76,7 +77,7 @@ export default class Results extends React.Component {
 
     if (loading) {
       return (
-        <p>Loading..</p>
+        <Loading text='Cargando' speed={100} />
       )
     }
 

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { fetchPopularRepos } from '../utils/api'
 import Card from './Card'
+import Loading from './Loading'
 import PropTypes from 'prop-types'
 import  {FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons/fa'
 
@@ -86,7 +87,7 @@ export default class Popular extends React.Component {
           />
         </header>
         <main>
-          {this.isLoading() && <p>Loading...</p>}
+          {this.isLoading() && <Loading />}
 
           {error && <p className="center-text error">{error}</p>}
 
