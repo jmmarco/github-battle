@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { fetchPopularRepos } from '../utils/api'
+import Card from './Card'
 import PropTypes from 'prop-types'
 import  {FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons/fa'
 
@@ -86,6 +87,9 @@ export default class Popular extends React.Component {
         </header>
         <main>
           {this.isLoading() && <p>Loading...</p>}
+
+          {error && <p className="center-text error">{error}</p>}
+
           {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]}/> }
         </main>
       </React.Fragment>
@@ -101,36 +105,35 @@ function ReposGrid({ repos }) {
         const { id, name, owner, html_url, stargazers_count, forks, open_issues } = repo
         const { login, avatar_url } = owner
         return (
-          <li key={id}>
-            <h4 className="heading-lg center-text">#{index + 1}</h4>
-            <img
-              className="avatar"
-              src={avatar_url}
-              alt={`Avatar for ${login}`}
-            />
-            <h2 className="center-text">
-              <a className="link" href={html_url}>{login}</a>
-            </h2>
-            <ul className="stats">
-              <li>
-              <FaUser style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255, 191, 116)" size={22} />
-              <a href={`https://github.com/${login}`}>
-                <span>{login}</span>
-              </a>
-              </li>
-              <li>
-                <FaStar style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255,215,0)" size={22} />
-                 <span>{stargazers_count.toLocaleString()} stars</span>
-              </li>
-              <li>
-                <FaCodeBranch style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(129, 195, 245)" size={22} />
-                 <span>{forks.toLocaleString()} forks</span>
-              </li>
-              <li>
-                <FaExclamationTriangle style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(241, 138, 147)" size={22} />
-                 <span>{open_issues.toLocaleString()} open issues</span>
-              </li>
-            </ul>
+          <li key={id} className="card bg-light">
+
+            <Card
+              header={`#${index + 1}`}
+              avatar={avatar_url}
+              href={html_url}
+              name={login}
+            >
+              <ul className="stats">
+                <li>
+                  <FaUser style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255, 191, 116)" size={22} />
+                  <a href={`https://github.com/${login}`}>
+                    <span>{login}</span>
+                  </a>
+                </li>
+                <li>
+                  <FaStar style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255,215,0)" size={22} />
+                  <span>{stargazers_count.toLocaleString()} stars</span>
+                </li>
+                <li>
+                  <FaCodeBranch style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(129, 195, 245)" size={22} />
+                  <span>{forks.toLocaleString()} forks</span>
+                </li>
+                <li>
+                  <FaExclamationTriangle style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(241, 138, 147)" size={22} />
+                  <span>{open_issues.toLocaleString()} open issues</span>
+                </li>
+              </ul>
+            </Card>
           </li>
         )
       })}

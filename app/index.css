@@ -85,6 +85,8 @@ li {
 }
 
 .avatar {
+  display: block;
+  margin: auto;
   width: 150px;
   height: auto;
 }
@@ -226,4 +228,20 @@ li {
 
 .btn-space {
   margin: 0 auto;
+}
+
+.error {
+  color: #ff1616;
+  font-size: 20px;
+  margin: 50px 0;
+}
+
+.card {
+  margin: 10px 0;
+  width: 250px;
+  padding: 20px;
+}
+
+.card-list li {
+  margin: 5px;
 }
