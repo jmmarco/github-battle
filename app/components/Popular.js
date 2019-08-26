@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { fetchPopularRepos } from '../utils/api'
 import Card from './Card'
 import Loading from './Loading'
+import Tooltip from './Tooltip'
 import PropTypes from 'prop-types'
 import  {FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons/fa'
 
@@ -116,10 +117,12 @@ function ReposGrid({ repos }) {
             >
               <ul className="stats">
                 <li>
-                  <FaUser style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255, 191, 116)" size={22} />
-                  <a href={`https://github.com/${login}`}>
-                    <span>{login}</span>
-                  </a>
+                  <Tooltip text="Github username">
+                    <FaUser style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255, 191, 116)" size={22} />
+                    <a href={`https://github.com/${login}`}>
+                      <span>{login}</span>
+                    </a>
+                  </Tooltip>
                 </li>
                 <li>
                   <FaStar style={{ verticalAlign: 'middle', marginRight: '10px' }} color="rgb(255,215,0)" size={22} />
