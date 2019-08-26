@@ -29,6 +29,7 @@ const styles = {
 
 class ProfileList extends React.Component {
   constructor(props) {
+    super(props)
     this.state = {
       hoveringLocation: false,
       hoveringCompany: false
@@ -52,7 +53,7 @@ class ProfileList extends React.Component {
 
 
   render() {
-
+    const { hoveringLocation,hoveringCompany } = this.state
     const { profile } =this.props
     return (
       <ul className="card-list">
@@ -61,15 +62,22 @@ class ProfileList extends React.Component {
           {profile.name}
         </li>
       {profile.location && (
-        <li onMouseOver={() => this.onMouseOver('hoveringLocation')} onMouseOut={() => this.onMouseOver('hoveringLocation')}>
-          {hoveringLocation && <div style={styles.location}>User's location</div>}
+        <li
+          style={styles.container}
+          onMouseOver={() => this.mouseOver('hoveringLocation')}
+          onMouseOut={() => this.mouseOut('hoveringLocation')}
+        >
+          {hoveringLocation && <div style={styles.tooltip}>User's location</div>}
           <FaCompass color="rgb(144, 115, 255)" size={22} />
           {profile.location}
         </li>
       )}
       {profile.company && (
-        <li onMouseOver={() => this.onMouseOver('hoveringCompany')} onMouseOut={() => this.onMouseOver('hoveringCompany')}>
-          {hoveringCompany && <div style={styles.location}>User's company</div>}
+        <li
+          style={styles.container}
+          onMouseOver={() => this.mouseOver('hoveringCompany')}
+          onMouseOut={() => this.mouseOut('hoveringCompany')}>
+          {hoveringCompany && <div style={styles.tooltip}>User's company</div>}
           <FaBriefcase color="#795548" size={22} />
           {profile.company}
         </li>
@@ -85,37 +93,6 @@ class ProfileList extends React.Component {
       </ul>
     )
   }
-}
-
-function ProfileList({ profile }) {
-  return (
-    <ul className="card-list">
-      <li>
-        <FaUser color="rbg(239, 115, 115)" size={22} />
-        {profile.name}
-      </li>
-    {profile.location && (
-      <li>
-        <FaCompass color="rgb(144, 115, 255)" size={22} />
-        {profile.location}
-      </li>
-    )}
-    {profile.company && (
-      <li>
-        <FaBriefcase color="#795548" size={22} />
-        {profile.company}
-      </li>
-    )}
-      <li>
-        <FaUsers color="rgb(129, 195, 245)" size={22} />
-        {profile.followers.toLocaleString()} followers
-      </li>
-      <li>
-        <FaUserFriends color="rgb(64, 183, 95)" size={22} />
-        {profile.following.toLocaleString()} follwoing
-      </li>
-    </ul>
-  )
 }
 
 ProfileList.propTypes = {
