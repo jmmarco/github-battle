@@ -13,9 +13,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
-      <Battle />
-      </>
+      <React.Fragment>
+        <Battle />
+      </React.Fragment>
     )
   }
   // This will get converted to:
