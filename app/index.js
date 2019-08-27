@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
+import { ThemeProvider } from './contexts/them'
 
 // Component
 // State
@@ -10,12 +11,25 @@ import Battle from './components/Battle'
 // Rendering (UI)
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      theme: 'light',
+      toggleTheme: () => {
+        this.state(({ theme }) => ({
+          theme: theme  === 'light' ? ' dark ' : 'light'
+        }))
+      }
+    }
+  }
 
   render() {
     return (
-      <React.Fragment>
-        <Battle />
-      </React.Fragment>
+      <ThemeProvider value={this.state}>
+        <React.Fragment>
+          <Battle />
+        </React.Fragment>
+      </ThemeProvider>
     )
   }
   // This will get converted to:
