@@ -30,7 +30,7 @@ class App extends React.Component {
         <div className={this.state.theme === 'light' ? 'light' : 'dark'}>
           <React.Fragment>
             <Nav />
-            <Battle />
+            <Popular />
           </React.Fragment>
         </div>
       </ThemeProvider>

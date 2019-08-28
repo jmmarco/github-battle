@@ -35,17 +35,14 @@ li {
   min-height: 100%;
 }
 
-
 .grid {
   margin: auto;
   display: flex;
+  flex-wrap: wrap;
 }
-
-.
 
 .grid > li {
   width: 300px;
-  background-color: rgb(231, 230, 231);
   border-radius: 4px;
   padding: 10px;
   display: flex;
@@ -73,7 +70,6 @@ li {
   margin: 10px;
 }
 
-
 .bg-light {
   background-color: rgb(0,0,0,0.1);
 }
@@ -96,9 +92,6 @@ li {
   color: #4a4a4a;
   background-color: #292929
 }
-
-
-
 
 .stats {
   list-style: none;
