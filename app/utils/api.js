@@ -13,8 +13,6 @@ function getRepos(username) {
         throw new Error(getErrorMsg(profile.message, username))
       }
 
-      console.log('repos from getRepos', repos)
-
       return repos
     })
 }
@@ -23,8 +21,6 @@ function getStarCount(repos) {
   let reducedCount =  repos.reduce((count, {stargazers_count}) => (
     stargazers_count + count
   ), 0)
-
-  console.log(reducedCount)
 
   return reducedCount
 }
@@ -39,8 +35,6 @@ function calculateScore(followers, repos) {
 
   return (followers * 3) + getStarCount(repos)
 }
-
-
 
 function getUserData (player) {
   return Promise.all([
@@ -83,13 +77,11 @@ function sortPlayers(players) {
 }
 
 export function battle(players) {
-  console.log('Players', players)
   return Promise.all([
     getUserData(players[0]),
     getUserData(players[1])
   ]).then(results => {
 
-    console.log('sorted players',sortPlayers(results))
     return sortPlayers(results)
   })
 }

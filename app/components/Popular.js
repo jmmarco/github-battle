@@ -30,24 +30,17 @@ const styles = {
 }
 
 export default class Popular extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedLanguage: 'All',
-      repos: {},
-      error: null
-    }
-    this.updateLanguage = this.updateLanguage.bind(this)
-    this.isLoading = this.isLoading.bind(this)
+  state = {
+    selectedLanguage: 'All',
+    repos: {},
+    error: null
   }
-
 
   componentDidMount() {
     this.updateLanguage(this.state.selectedLanguage)
   }
 
-
-  updateLanguage(selectedLanguage) {
+  updateLanguage = (selectedLanguage) => {
     this.setState({
       selectedLanguage,
       error: null
@@ -106,7 +99,6 @@ function ReposGrid({ repos }) {
       {({theme}) => (
         <ul className="grid space-around">
           {repos.map((repo, index) => {
-            console.log(repo)
             const { id, name, owner, html_url, stargazers_count, forks, open_issues } = repo
             const { login, avatar_url } = owner
             return (

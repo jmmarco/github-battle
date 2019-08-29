@@ -14,11 +14,8 @@ const styles = {
 }
 
 export default class Loading extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      content: props.text
-    }
+  state = {
+    content: this.props.text
   }
 
   componentDidMount() {
@@ -33,8 +30,6 @@ export default class Loading extends React.Component {
   componentWillUnmount() {
     window.clearInterval(this.interval)
   }
-
-
 
   render() {
     return (
