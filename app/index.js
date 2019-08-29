@@ -6,6 +6,7 @@ import Battle from './components/Battle'
 import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Results from './components/Results'
 
 // Component
 // State
@@ -33,7 +34,8 @@ class App extends React.Component {
             <React.Fragment>
               <Nav />
               <Route exact path="/" component={Popular} />
-              <Route path="/battle" component={Battle} />
+              <Route exact path='/battle' component={Battle} />
+              <Route path='/battle/results' component={Results} />
             </React.Fragment>
           </div>
         </ThemeProvider>
