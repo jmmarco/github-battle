@@ -80,7 +80,7 @@ export default class Results extends React.Component {
 
     if (loading) {
       return (
-        <Loading text='Cargando' speed={100} />
+        <Loading text='Loading' speed={100} />
       )
     }
 
