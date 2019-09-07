@@ -1,12 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import Popular from './components/Popular'
-import Battle from './components/Battle'
 import { ThemeProvider } from './contexts/theme'
 import Nav from './components/Nav'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Results from './components/Results'
+import Loading from './components/Loading'
+
+
+
+const Popular = React.lazy(() => import('./components/Popular'))
+const Battle = React.lazy(() => import('./components/Battle'))
+const Results = React.lazy(() => import('./components/Results'))
 
 // Component
 // State
@@ -31,16 +35,18 @@ class App extends React.Component {
           <div className={`${this.state.theme === 'light' ? 'light' : 'dark'} container`}>
             <React.Fragment>
               <Nav />
-              <Switch>
-                <Route exact path="/" component={Popular} />
-                <Route exact path='/battle' component={Battle} />
-                <Route path='/battle/results' component={Results} />
-                <Route render={() => {
-                  return (
-                      <h1 style={{ textAlign: 'center' }}>Sorry ❗⛔ ❗That page does not exist!</h1>
-                  )
-                }} />
-              </Switch>
+              <React.Suspense fallback={<Loading />}>
+                <Switch>
+                  <Route exact path="/" component={Popular} />
+                  <Route exact path='/battle' component={Battle} />
+                  <Route path='/battle/results' component={Results} />
+                  <Route render={() => {
+                    return (
+                        <h1 style={{ textAlign: 'center' }}>Sorry ❗⛔ ❗That page does not exist!</h1>
+                    )
+                  }} />
+                </Switch>
+              </React.Suspense>
             </React.Fragment>
           </div>
         </ThemeProvider>
