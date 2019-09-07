@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
+
 
 module.exports = {
   entry: './app/index.js',
@@ -19,7 +21,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'GitHub Battle',
       template: './app/index.html'
-    })
+    }),
+    new CopyPlugin([
+      {
+        from: '_redirects'
+      }
+    ])
   ],
   devServer: {
     historyApiFallback: true
