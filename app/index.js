@@ -54,22 +54,7 @@ class App extends React.Component {
 
     )
   }
-  // This will get converted to:
-  /*
-  render() {
-    return React.createElement(
-      'div',
-      null,
-      'Hello there!'
-    )
-  }
-  */
 }
 
 
-ReactDOM.render(
-  // React Element,
-  // Where to render the element to
-  <App />,
-  document.getElementById('app')
-  )
+ReactDOM.render(<App/>, document.getElementById('app'))
