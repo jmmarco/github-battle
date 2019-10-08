@@ -1,39 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { ThemeProvider } from './contexts/theme'
-import Nav from './components/Nav'
+import ThemeContext from './contexts/theme'
+// import Nav from './components/Nav'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Loading from './components/Loading'
+// import Loading from './components/Loading'
 
+// const Popular = React.lazy(() => import('./components/Popular'))
+// const Battle = React.lazy(() => import('./components/Battle'))
+// const Results = React.lazy(() => import('./components/Results'))
 
+function App () {
 
-const Popular = React.lazy(() => import('./components/Popular'))
-const Battle = React.lazy(() => import('./components/Battle'))
-const Results = React.lazy(() => import('./components/Results'))
-
-// Component
-// State
-// Lifecycle
-// Rendering (UI)
-
-class App extends React.Component {
-  state = {
-    theme: 'light',
-    toggleTheme: () => {
-      this.setState(({ theme }) => ({
-        theme: theme  === 'light' ? 'dark ' : 'light'
-      }))
+  const  [ theme, setTheme ] = React.useState('light')
+  
+    const toggleTheme = () => {
+      setTheme(theme => {
+        return theme === 'light' ? 'dark ' : 'light'
+      })
     }
-  }
 
-  render() {
+    console.log('theme', theme)
+
     return (
 
       <Router>
-        <ThemeProvider value={this.state}>
-          <div className={`${this.state.theme === 'light' ? 'light' : 'dark'} container`}>
-            <React.Fragment>
+        <ThemeContext.Provider value={theme}>
+          <div className={`${theme === 'light' ? 'light' : 'dark'} container`}>
+
+            {/* <React.Fragment>
               <Nav />
               <React.Suspense fallback={<Loading />}>
                 <Switch>
@@ -47,14 +42,13 @@ class App extends React.Component {
                   }} />
                 </Switch>
               </React.Suspense>
-            </React.Fragment>
+            </React.Fragment> */}
           </div>
-        </ThemeProvider>
+        </ThemeContext.Provider>
       </Router>
 
     )
   }
-}
 
 
 ReactDOM.render(<App/>, document.getElementById('app'))
