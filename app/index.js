@@ -2,13 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import ThemeContext from './contexts/theme'
-// import Nav from './components/Nav'
+import Nav from './components/Nav'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-// import Loading from './components/Loading'
+import Loading from './components/Loading'
 
-// const Popular = React.lazy(() => import('./components/Popular'))
-// const Battle = React.lazy(() => import('./components/Battle'))
-// const Results = React.lazy(() => import('./components/Results'))
+const Popular = React.lazy(() => import('./components/Popular'))
+const Battle = React.lazy(() => import('./components/Battle'))
+const Results = React.lazy(() => import('./components/Results'))
 
 function App () {
 
@@ -20,17 +20,26 @@ function App () {
       })
     }
 
+    const value = React.useMemo(
+      () => ({
+        theme,
+        toggleTheme
+      }),
+      [theme]
+    )
+
     console.log('theme', theme)
 
     return (
 
       <Router>
-        <ThemeContext.Provider value={theme}>
+        <ThemeContext.Provider value={value}>
           <div className={`${theme === 'light' ? 'light' : 'dark'} container`}>
-
-            {/* <React.Fragment>
+            {/* <Nav /> */}
+            
+            <React.Fragment>
               <Nav />
-              <React.Suspense fallback={<Loading />}>
+              {/* <React.Suspense fallback={<Loading />}>
                 <Switch>
                   <Route exact path="/" component={Popular} />
                   <Route exact path='/battle' component={Battle} />
@@ -41,8 +50,8 @@ function App () {
                     )
                   }} />
                 </Switch>
-              </React.Suspense>
-            </React.Fragment> */}
+              </React.Suspense> */}
+            </React.Fragment>
           </div>
         </ThemeContext.Provider>
       </Router>
