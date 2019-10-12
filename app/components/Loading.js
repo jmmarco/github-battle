@@ -18,12 +18,12 @@ export default function Loading ({ speed, text }) {
 
   React.useEffect(() => {
     window.interval = window.setInterval(() => {
-      content === text + '...' 
-      ? setContent(text)
-      : setContent(content + '.')
+      console.log('inside setInterval')
+      content === text + '...' ? setContent(text) : setContent(content + '.')
     }, speed)
-      return () => window.clearInterval(window.interval);
-  }, [speed])
+
+    return () => window.clearInterval(window.interval);
+  }, [speed, text])
 
 
 
