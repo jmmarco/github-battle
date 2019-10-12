@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Hover () {
+export default function Hover ({ children }) {
   const [ hovering, setHovering ] = React.useState(false)
 
   const mouseOver = () => setHovering(true)
@@ -8,7 +8,7 @@ export default function Hover () {
 
   return (
     <div onMouseOver={mouseOver} onMouseOut={mouseOut}>
-      {this.props.children(hovering)}
+      {children(hovering)}
     </div>
   )
 }
