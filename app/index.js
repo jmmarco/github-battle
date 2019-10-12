@@ -10,54 +10,52 @@ const Popular = React.lazy(() => import('./components/Popular'))
 const Battle = React.lazy(() => import('./components/Battle'))
 const Results = React.lazy(() => import('./components/Results'))
 
-function App () {
+function App() {
 
-  const  [ theme, setTheme ] = React.useState('light')
-  
-    const toggleTheme = () => {
-      setTheme(theme => {
-        return theme === 'light' ? 'dark ' : 'light'
-      })
-    }
+  const [theme, setTheme] = React.useState('light')
 
-    const value = React.useMemo(
-      () => ({
-        theme,
-        toggleTheme
-      }),
-      [theme]
-    )
-
-    console.log('theme', theme)
-
-    return (
-
-      <Router>
-        <ThemeContext.Provider value={value}>
-          <div className={`${theme === 'light' ? 'light' : 'dark'} container`}>
-            {/* <Nav /> */}
-            
-            <React.Fragment>
-              <Nav />
-              {/* <React.Suspense fallback={<Loading />}>
-                <Switch>
-                  <Route exact path="/" component={Popular} />
-                  <Route exact path='/battle' component={Battle} />
-                  <Route path='/battle/results' component={Results} />
-                  <Route render={() => {
-                    return (
-                        <h1 style={{ textAlign: 'center' }}>Sorry ❗⛔ ❗That page does not exist!</h1>
-                    )
-                  }} />
-                </Switch>
-              </React.Suspense> */}
-            </React.Fragment>
-          </div>
-        </ThemeContext.Provider>
-      </Router>
-
-    )
+  const toggleTheme = () => {
+    setTheme(theme => {
+      return theme === 'light' ? 'dark ' : 'light'
+    })
   }
 
+  const value = React.useMemo(
+    () => ({
+      theme,
+      toggleTheme
+    }),
+    [theme]
+  )
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+  console.log('theme', theme)
+
+  return (
+
+    <Router>
+      <ThemeContext.Provider value={value}>
+        <div className={`${theme === 'light' ? 'light' : 'dark'} container`}>
+          <React.Fragment>
+            <Nav />
+            <React.Suspense fallback={<Loading />}>
+              <Switch>
+                <Route exact path="/" component={Popular} />
+                <Route exact path='/battle' component={Battle} />
+                <Route path='/battle/results' component={Results} />
+                <Route render={() => {
+                  return (
+                    <h1 style={{ textAlign: 'center' }}>Sorry ❗⛔ ❗That page does not exist!</h1>
+                  )
+                }} />
+              </Switch>
+            </React.Suspense>
+          </React.Fragment>
+        </div>
+      </ThemeContext.Provider>
+    </Router>
+
+  )
+}
+
+
+ReactDOM.render(<App />, document.getElementById('app'))
