@@ -13,16 +13,20 @@ const styles = {
   }
 }
 
-export default function Loading ({ speed, text }) {
+export default function Loading ({ speed = 300, text = 'Loading' }) {
+
+
   const [ content, setContent ] = React.useState(text)
 
   React.useEffect(() => {
-    window.interval = window.setInterval(() => {
-      console.log('inside setInterval')
-      content === text + '...' ? setContent(text) : setContent(content + '.')
+    const timerId = window.setInterval(() => {
+
+      setContent((content) => {
+        return content === text + '...' ? setContent(text) : setContent(content + '.')
+      })
     }, speed)
 
-    return () => window.clearInterval(window.interval);
+    return () => window.clearInterval(timerId);
   }, [speed, text])
 
 
@@ -31,14 +35,4 @@ export default function Loading ({ speed, text }) {
     <p style={styles.content}>{content}</p>
   )
 
-}
-
-Loading.defaultProps = {
-  text: 'Loading',
-  speed: 300
-}
-
-Loading.propTypes = {
-  text: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired
 }
