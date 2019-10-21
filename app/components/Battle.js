@@ -31,7 +31,7 @@ function Instructions() {
 
 function PlayerInput({ label, onSubmit }) {
   const [username, setUsername] = React.useState('')
-  const { theme, toggleTheme } = React.useContext(ThemeContext)
+  const { theme } = React.useContext(ThemeContext)
 
   const handleSubmit = (event) => {
     event.preventDefault()
