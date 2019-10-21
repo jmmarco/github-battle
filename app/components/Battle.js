@@ -6,7 +6,6 @@ import { FaUserFriends, FaFighterJet, FaTrophy, FaTimesCircle } from 'react-icon
 
 
 function Instructions() {
-
   const { theme, toggleTheme } = React.useContext(ThemeContext)
 
   return (
@@ -73,7 +72,7 @@ function PlayerInput({ label, onSubmit }) {
 
 function PlayerPreview({ username, onReset, label }) {
 
-  const { theme, toggleTheme } = React.useContext(ThemeContext)
+  const { theme } = React.useContext(ThemeContext)
 
   return (
     <div className="column player">
