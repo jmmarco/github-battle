@@ -15,7 +15,6 @@ const styles = {
 
 export default function Loading ({ speed = 300, text = 'Loading' }) {
 
-
   const [ content, setContent ] = React.useState(text)
 
   React.useEffect(() => {
@@ -28,8 +27,6 @@ export default function Loading ({ speed = 300, text = 'Loading' }) {
 
     return () => window.clearInterval(timerId);
   }, [speed, text])
-
-
 
   return (
     <p style={styles.content}>{content}</p>
