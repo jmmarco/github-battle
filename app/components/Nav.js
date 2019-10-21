@@ -3,10 +3,7 @@ import ThemeContext from '../contexts/theme'
 import { NavLink } from 'react-router-dom'
 
 export default function Nav() {
-
   const { theme, toggleTheme } =  React.useContext(ThemeContext)
-
-  console.log('theme from Nav component', theme)
 
   return (
     <nav className="row space-between">

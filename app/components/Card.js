@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 export default function Card({ header, subheader, avatar, name, href, children }) {
   const { theme } = React.useContext(ThemeContext)
+  
   return (
-
     <div className={`card bg-${theme}`}>
       <h4 className="heading-lg center-text">
         {header}
