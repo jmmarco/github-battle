@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { fetchPopularRepos } from '../utils/api'
 import Card from './Card'
 import Loading from './Loading'
@@ -29,49 +28,61 @@ const styles = {
   }
 }
 
+function popularReducer(state, action) {
+
+  switch(action.type) {
+    case 'success':
+      return {
+        ...state, [action.selectedLanguage]: action.repos,
+        error: null
+      }
+    case 'error':
+      return {
+        ...state,
+        error: action.error.message
+      }
+    default:
+      return state
+  }
+}
+
 export default function Popular() {
-  const [ selectedLanguage, setLanguage ] = React.useState('All')
-  const [ repos, setRepos ] = React.useState({})
-  const [ error, setError ] = React.useState(null)
+  const [ selectedLanguage, setSelectedLanguage ] = React.useState('All')
+
+  // Our own reducer to handle repos and errors
+  const [ state, dispatch ] = React.useReducer(popularReducer, {error: null})
+
+  // Persist a value across re-renders
+  const fetchedLanguages = React.useRef([])
 
   React.useEffect(() => {
-    updateLanguage(selectedLanguage)
-  }, [])
+    if(fetchedLanguages.current.includes(selectedLanguage) === false) {
+      fetchedLanguages.current.push(selectedLanguage)
 
-  const updateLanguage = (selectedLanguage) => {
-    setLanguage(selectedLanguage)
-    setError(null)
-
-    if (!repos[selectedLanguage]) {
+      // Call the API to fetch repos
       fetchPopularRepos(selectedLanguage)
-        .then((data) => {
-          setRepos({...repos, [selectedLanguage]: data})
-        })
-        .catch(error => {
-          console.warn('Error fetching repos: ', error)
-          setError(error)
-        })
+        .then((repos) => dispatch({ type: 'success', selectedLanguage, repos}))
+        .catch((error) => dispatch({ type: 'error', error }))
     }
-  }
 
-  const isLoading = () => {
-    return !repos[selectedLanguage] && error === null
-  }
+  }, [fetchedLanguages, selectedLanguage])
+
+  const isLoading = () => !state[selectedLanguage] && state.error === null
 
   return (
     <React.Fragment>
       <header>
         <LanguagesNav
           selectedLanguage={selectedLanguage}
-          onUpdateLanguage={updateLanguage}
+          onUpdateLanguage={(language) => setSelectedLanguage(language)}
         />
       </header>
       <main>
         {isLoading() && <Loading />}
 
-        {error && <p className="center-text error">{error}</p>}
+        {state.error && <p className="center-text error">{state.error}</p>}
 
-        {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]}/> }
+        {state[selectedLanguage] && <ReposGrid repos={state[selectedLanguage]}/> }
       </main>
     </React.Fragment>
   )
@@ -82,7 +93,7 @@ function ReposGrid({ repos }) {
   return (
     <ul className="grid space-around">
       {repos.map((repo, index) => {
-        const { id, name, owner, html_url, stargazers_count, forks, open_issues } = repo
+        const { id, owner, html_url, stargazers_count, forks, open_issues } = repo
         const { login, avatar_url } = owner
         return (
           <li key={id} className={`card bg-${theme}`}>
@@ -139,7 +150,6 @@ function LanguagesNav(props) {
       )}
     </ul>
     )
-
 }
 
 LanguagesNav.propTypes = {
