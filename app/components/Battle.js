@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   FaUserFriends,
   FaFighterJet,
@@ -42,47 +42,44 @@ function Instructions() {
   );
 }
 
-class PlayerInput extends React.Component {
-  state = {
-    username: '',
-  };
-  handleSubmit = (event) => {
-    event.preventDefault();
+function PlayerInput({ label, onSubmit }) {
+  const [username, setUsername] = useState('');
+  const { theme } = useContext(ThemeContext)
 
-    this.props.onSubmit(this.state.username);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(username);
   };
-  handleChange = (event) => {
-    this.setState({
-      username: event.target.value,
-    });
+
+  const handleChange = (event) => {
+    setUsername(event.target.value);
   };
-  render() {
-    return (
-      <form className="column player" onSubmit={this.handleSubmit}>
-        <label htmlFor="username" className="player-label">
-          {this.props.label}
-        </label>
-        <div className="row player-inputs">
-          <input
-            type="text"
-            id="username"
-            className={`input-${theme}`}
-            placeholder="github username"
-            autoComplete="off"
-            value={this.state.username}
-            onChange={this.handleChange}
-          />
-          <button
-            className={`btn ${theme === 'dark' ? 'light-btn' : 'dark-btn'}`}
-            type="submit"
-            disabled={!this.state.username}
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    );
-  }
+
+  return (
+    <form className="column player" onSubmit={handleSubmit}>
+      <label htmlFor="username" className="player-label">
+        {label}
+      </label>
+      <div className="row player-inputs">
+        <input
+          type="text"
+          id="username"
+          className={`input-${theme}`}
+          placeholder="github username"
+          autoComplete="off"
+          value={username}
+          onChange={handleChange}
+        />
+        <button
+          className={`btn ${theme === 'dark' ? 'light-btn' : 'dark-btn'}`}
+          type="submit"
+          disabled={!username}
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  );
 }
 
 PlayerInput.propTypes = {
@@ -91,6 +88,7 @@ PlayerInput.propTypes = {
 };
 
 function PlayerPreview({ username, onReset, label }) {
+  const {theme} = useContext(ThemeContext)
   return (
     <div className="column player">
       <h3 className="player-label">{label}</h3>
@@ -119,71 +117,67 @@ PlayerPreview.propTypes = {
   label: PropTypes.string.isRequired,
 };
 
-export default class Battle extends React.Component {
-  state = {
-    playerOne: null,
-    playerTwo: null,
+export default function Battle() {
+  const [playerOne, setPlayerOne] = useState(null);
+  const [playerTwo, setPlayerTwo] = useState(null);
+
+  const handleSubmit = (id, player) => {
+
+    if (id === 'playerOne') setPlayerOne(player);
+    if (id === 'playerTwo') setPlayerTwo(player);
   };
-  handleSubmit = (id, player) => {
-    this.setState({
-      [id]: player,
-    });
+
+  const handleReset = (id) => {
+    if (id === 'playerOne') setPlayerOne(null);
+    if (id === 'playerTwo') setPlayerTwo(null);
   };
-  handleReset = (id) => {
-    this.setState({
-      [id]: null,
-    });
-  };
-  render() {
-    const { playerOne, playerTwo } = this.state;
 
-    return (
-      <React.Fragment>
-        <Instructions />
+  return (
+    <React.Fragment>
+      <Instructions />
 
-        <div className="players-container">
-          <h1 className="center-text header-lg">Players</h1>
-          <div className="row space-around">
-            {playerOne === null ? (
-              <PlayerInput
-                label="Player One"
-                onSubmit={(player) => this.handleSubmit('playerOne', player)}
-              />
-            ) : (
-              <PlayerPreview
-                username={playerOne}
-                label="Player One"
-                onReset={() => this.handleReset('playerOne')}
-              />
-            )}
+      <div className="players-container">
+        <h1 className="center-text header-lg">Players</h1>
+        <div className="row space-around">
+          {playerOne === null ? (
+            <PlayerInput
+              label="Player One"
+              onSubmit={(player) => handleSubmit('playerOne', player)}
+            />
+          ) : (
+            <PlayerPreview
+              username={playerOne}
+              label="Player One"
+              onReset={() => handleReset('playerOne')}
+            />
+          )}
 
-            {playerTwo === null ? (
-              <PlayerInput
-                label="Player Two"
-                onSubmit={(player) => this.handleSubmit('playerTwo', player)}
-              />
-            ) : (
-              <PlayerPreview
-                username={playerTwo}
-                label="Player Two"
-                onReset={() => this.handleReset('playerTwo')}
-              />
-            )}
-          </div>
-
-          {playerOne && playerTwo && (
-            <Link
-              className="btn dark-btn btn-space"
-              to={{
-                pathname: '/battle/results',
-                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
-              }}
-            >
-              Battle
-            </Link>
+          {playerTwo === null ? (
+            <PlayerInput
+              label="Player Two"
+              onSubmit={(player) => handleSubmit('playerTwo', player)}
+            />
+          ) : (
+            <PlayerPreview
+              username={playerTwo}
+              label="Player Two"
+              onReset={() => handleReset('playerTwo')}
+            />
           )}
         </div>
-      </React.Fragment>
-    );
-  }
+
+        {playerOne && playerTwo && (
+          <Link
+            className="btn dark-btn btn-space"
+            to={{
+              pathname: '/battle/results',
+              search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+            }}
+          >
+            Battle
+          </Link>
+        )}
+      </div>
+    </React.Fragment>
+  );
 }
