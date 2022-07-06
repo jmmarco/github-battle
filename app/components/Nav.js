@@ -11,7 +11,6 @@ export default function Nav() {
 
   return (
     <nav className="row space-between">
-      <pre>hello{JSON.stringify(theme, null, 2)}</pre>
       <ul className="row nav">
         <li>
           <NavLink to="/" exact activeStyle={activeStyle} className="nav-link">
