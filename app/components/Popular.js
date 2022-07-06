@@ -110,8 +110,7 @@ function reposReducer(state, action) {
         loading: !state.loading,
       };
     default:
-      return state;
-    // throw new Error('Action not supported');
+      throw new Error('Action not supported');
   }
 }
 
