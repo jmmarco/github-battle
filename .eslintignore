@@ -1,0 +1,6 @@
+# lcov web site
+coverage
+# bundled and minified output
+dist
+# external dependencies
+node_modules
