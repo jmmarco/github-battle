@@ -28,6 +28,7 @@ export default function Card({
 
 Card.propTypes = {
   header: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   subheader: PropTypes.string,
   avatar: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
